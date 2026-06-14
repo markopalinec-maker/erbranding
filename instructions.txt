@@ -1,0 +1,163 @@
+============================================================
+  SANITY STUDIO — CLIENT GUIDE
+  For: ERBRANDING.STUDIO
+============================================================
+
+This document explains how to log in, navigate, and manage
+all content on your website using Sanity Studio.
+
+
+------------------------------------------------------------
+1. ACCESSING THE STUDIO
+------------------------------------------------------------
+
+The Studio is available at:
+
+  https://your-website.com/studio
+
+Log in with your Google or GitHub account — whichever your
+developer used to invite you. You do not need a password.
+
+
+------------------------------------------------------------
+2. OVERVIEW OF THE STUDIO
+------------------------------------------------------------
+
+After logging in you will see a sidebar on the left with all
+the content types you can edit:
+
+  - Site Settings     (global info: name, tagline, contact, socials)
+  - Projects          (your portfolio work)
+  - Services          (what you offer, shown on the homepage)
+  - Awards            (recognition and competitions)
+  - Pages             (additional custom pages)
+
+
+------------------------------------------------------------
+3. SITE SETTINGS
+------------------------------------------------------------
+
+Use this to update global information shown across the site.
+
+Fields you can edit:
+  - Studio Name       Your studio name displayed on the site
+  - Tagline           Short descriptor shown on the homepage
+  - Contact Email     Email shown on the contact page
+  - Phone             Phone number shown on the contact page
+  - Location          City / address shown on the contact page
+  - Marquee Text      The scrolling text strip on the homepage
+  - Hero Images       The full-width carousel images at the top
+  - Social Links      Add / remove social media profile URLs
+
+To edit:
+  1. Click "Site Settings" in the sidebar
+  2. Make your changes
+  3. Click the blue "Publish" button in the bottom right
+
+
+------------------------------------------------------------
+4. MANAGING PROJECTS
+------------------------------------------------------------
+
+To add a new project:
+  1. Click "Projects" in the sidebar
+  2. Click the pencil/compose icon (top right of the list)
+  3. Fill in the fields:
+       - Title           Name of the project
+       - Slug            URL path (auto-generated, do NOT change)
+       - Category        Branding, Web Design, Photography, etc.
+       - Client          Client name
+       - Year            Year of completion
+       - Description     Short description
+       - Cover Image     Main image shown in the grid (required)
+       - Featured        Toggle ON to show on the homepage
+       - Display Order   Lower number = appears first
+       - Gallery Sections  Add image galleries (see below)
+  4. Click "Publish"
+
+Adding Gallery Sections inside a project:
+  1. Scroll down to "Gallery Sections"
+  2. Click "Add item"
+  3. Choose a layout (Full Width, Masonry, Two Column, etc.)
+  4. Upload your images into that section
+
+To delete a project:
+  Open the project → three-dot menu (...) → "Delete"
+  WARNING: Deletion is permanent.
+
+
+------------------------------------------------------------
+5. MANAGING SERVICES
+------------------------------------------------------------
+
+Services appear in the grid on the homepage.
+
+  1. Click "Services" in the sidebar
+  2. Click the compose icon to add a new one
+  3. Fill in: Title, Description, Icon Image, Display Order
+  4. Click "Publish"
+
+To reorder: change the Display Order number (lower = first).
+
+
+------------------------------------------------------------
+6. MANAGING AWARDS
+------------------------------------------------------------
+
+  - Title, Year, City, Placement, Category
+  - Person / Team name
+  - Badge Image (required)
+  - Display Order (lower = first)
+
+
+------------------------------------------------------------
+7. IMAGES — TIPS
+------------------------------------------------------------
+
+  - Accepted formats: JPG, PNG, WebP, GIF
+  - Cover/hero images: landscape, min 1600px wide, under 5MB
+  - After uploading, click the image to crop or set a hotspot
+    (the hotspot controls which part stays visible when cropped)
+  - Always click "Publish" or changes won't go live
+
+
+------------------------------------------------------------
+8. DRAFT vs PUBLISHED
+------------------------------------------------------------
+
+  DRAFT     = saved but NOT visible on the website
+  PUBLISHED = visible on the live website
+
+Click "Publish" when ready. To hide content without deleting:
+three-dot menu (...) → "Unpublish".
+
+
+------------------------------------------------------------
+9. WHAT THE DEVELOPER NEEDS TO DO FIRST
+------------------------------------------------------------
+
+Before the client can access the Studio, the developer must:
+
+  1. Go to sanity.io/manage and open the project
+  2. Settings → Members → "Invite member"
+  3. Enter the client's email, assign role: "Editor"
+     (Editor can manage content but not change project settings)
+  4. Client receives an email invitation — accept it and log in
+
+That is all. The client will then have full access to all
+content types described in this guide.
+
+
+------------------------------------------------------------
+10. IMPORTANT — DO NOT TOUCH
+------------------------------------------------------------
+
+Do NOT edit or delete the "Slug" field on any document.
+The slug is the page URL. Changing it breaks existing links.
+
+If anything looks wrong, contact your developer before
+making changes.
+
+============================================================
+  END OF GUIDE
+============================================================

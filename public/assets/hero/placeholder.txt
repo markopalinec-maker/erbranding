@@ -1,0 +1,9 @@
+Place your hero carousel images here.
+Supported formats: .jpg, .jpeg, .png, .webp
+
+Recommended:
+- hero-1.jpg
+- hero-2.jpg
+- hero-3.jpg
+
+Images should be high resolution (1920x1080 or larger) for best results.

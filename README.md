@@ -1,36 +1,180 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ERBRANDING.STUDIO Portfolio Website
+
+A modern, CMS-driven portfolio website built with **Next.js 14+**, **TypeScript**, **Tailwind CSS**, and **Sanity CMS**.
+
+## Features
+
+- 🎨 **CMS-Driven Content**: Full control over pages, projects, and gallery layouts via Sanity Studio
+- 📱 **Responsive Design**: Works beautifully on all devices
+- 🖼️ **Multiple Gallery Layouts**: 
+  - Two-column grid
+  - Three-column grid
+  - Masonry layout
+  - Custom grid (configurable columns)
+  - Full-width images
+  - Split layout (large + small images)
+- 🚀 **Optimized Performance**: ISR, image optimization, and CDN caching
+- ✨ **Smooth Animations**: Powered by Framer Motion
+- 🔧 **No-Code Updates**: Non-technical users can manage all content
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 18+ 
+- npm or yarn
+- A Sanity account (free tier available)
+
+### 1. Clone and Install
+
+```bash
+npm install
+```
+
+### 2. Create a Sanity Project
+
+1. Go to [sanity.io](https://sanity.io) and create a new project
+2. Note your **Project ID** (found in project settings)
+3. Create a dataset named `production` (or use the default)
+
+### 3. Configure Environment Variables
+
+Copy `.env.example` to `.env.local` and fill in your Sanity credentials:
+
+```env
+NEXT_PUBLIC_SANITY_PROJECT_ID=your_actual_project_id
+NEXT_PUBLIC_SANITY_DATASET=production
+NEXT_PUBLIC_SANITY_API_VERSION=2024-01-01
+```
+
+### 4. Add CORS Origins in Sanity
+
+1. Go to your Sanity project at [sanity.io/manage](https://sanity.io/manage)
+2. Navigate to **API** → **CORS origins**
+3. Add your development URL: `http://localhost:3000`
+4. Add your production URL when deploying
+
+### 5. Run the Development Server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to see the site.
+Open [http://localhost:3000/studio](http://localhost:3000/studio) to access Sanity Studio.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Using Sanity Studio
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Creating Projects
 
-## Learn More
+1. Go to `/studio` in your browser
+2. Click **Project** in the sidebar
+3. Fill in:
+   - **Title**: Project name
+   - **Slug**: Auto-generated from title (click Generate)
+   - **Category**: Select from dropdown
+   - **Client**: Client name
+   - **Year**: Year completed
+   - **Description**: Project description
+   - **Cover Image**: Main project image
+   - **Featured**: Check to show on homepage carousel
 
-To learn more about Next.js, take a look at the following resources:
+### Adding Gallery Sections
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Each project can have multiple gallery sections with different layouts:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. In a project, scroll to **Gallery Sections**
+2. Click **Add item**
+3. Choose a **Layout Type**:
+   - **Two Columns**: Side-by-side images
+   - **Three Columns**: Three images per row
+   - **Masonry**: Pinterest-style flowing layout
+   - **Custom Grid**: Specify exact columns (1-6)
+   - **Full Width**: Single image per row
+   - **Split**: Large image with smaller stacked images
 
-## Deploy on Vercel
+4. Set **Spacing** (gap between images in pixels)
+5. Add **Images** - drag to reorder
+6. Click **Publish** to save
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Creating Pages
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Go to **Page** in Sanity Studio
+2. Create pages with custom gallery sections
+3. Pages are accessible at `/{slug}`
+
+### Managing Services
+
+1. Go to **Service** in Sanity Studio
+2. Add services shown on the homepage "Things We Do" section
+
+## Project Structure
+
+```
+src/
+├── app/                    # Next.js App Router pages
+│   ├── [slug]/            # Dynamic CMS pages
+│   ├── projects/          # Projects listing and detail
+│   ├── studio/            # Sanity Studio
+│   ├── layout.tsx         # Root layout
+│   └── page.tsx           # Homepage
+├── components/
+│   ├── gallery/           # Gallery layout components
+│   ├── home/              # Homepage components
+│   ├── layout/            # Header, Marquee, etc.
+│   └── projects/          # Project cards and grid
+├── sanity/
+│   ├── lib/               # Sanity client and queries
+│   └── schemas/           # CMS content schemas
+└── types/                 # TypeScript definitions
+```
+
+## Deployment
+
+### Vercel (Recommended)
+
+1. Push your code to GitHub
+2. Import the project in [Vercel](https://vercel.com)
+3. Add environment variables in Vercel project settings
+4. Deploy!
+
+### Environment Variables for Production
+
+Make sure to set these in your deployment platform:
+- `NEXT_PUBLIC_SANITY_PROJECT_ID`
+- `NEXT_PUBLIC_SANITY_DATASET`
+- `NEXT_PUBLIC_SANITY_API_VERSION`
+
+### CORS for Production
+
+Add your production URL to Sanity CORS origins:
+1. [sanity.io/manage](https://sanity.io/manage) → Your Project → API → CORS origins
+2. Add `https://your-domain.com`
+
+## Customization
+
+### Styling
+
+- Edit `src/app/globals.css` for global styles
+- Use Tailwind classes in components
+- Update colors in the components as needed
+
+### Adding New Gallery Layouts
+
+1. Create a new component in `src/components/gallery/`
+2. Add it to `src/components/gallery/index.ts`
+3. Add the layout option to `src/sanity/schemas/gallerySection.ts`
+4. Handle the new layout in `GallerySection.tsx`
+
+## Tech Stack
+
+- **Framework**: Next.js 14+ (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **CMS**: Sanity.io
+- **Animations**: Framer Motion
+- **Image Optimization**: Next.js Image + Sanity CDN
+
+## License
+
+MIT

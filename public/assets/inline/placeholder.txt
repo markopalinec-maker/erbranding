@@ -1,0 +1,12 @@
+Place your inline headline images here.
+These images appear within the headline text and animate/swap automatically.
+
+Supported formats: .jpg, .jpeg, .png, .webp
+
+Recommended naming:
+- inline-1.jpg
+- inline-2.jpg
+- inline-3.jpg
+- inline-4.jpg
+
+Images should be roughly square or slightly rectangular (e.g., 120x120 or 150x100).
