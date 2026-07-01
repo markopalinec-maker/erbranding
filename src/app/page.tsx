@@ -1,7 +1,7 @@
 import { client } from '@/sanity/lib';
 import { servicesQuery, featuredProjectsQuery } from '@/sanity/lib/queries';
 import { Service, Project } from '@/types';
-import { HeroImageCarousel, HeadlineBlock, ServicesGrid, FeaturedProjects } from '@/components/home';
+import { HeadlineBlock, ServicesGrid, FeaturedProjects } from '@/components/home';
 
 // Revalidate every 60 seconds for ISR
 export const revalidate = 60;
@@ -26,13 +26,6 @@ async function getFeaturedProjects(): Promise<Project[]> {
   }
 }
 
-// Hero carousel images from assets folder
-const heroImages = [
-  '/assets/hero/hero-1.jpg',
-  '/assets/hero/hero-2.jpg',
-  '/assets/hero/hero-3.jpg',
-];
-
 // Inline images for headline block (3 sets, one for each animated position)
 const inlineImageSets = [
   ['/assets/inline/inline-1.png', '/assets/inline/inline-2.png', '/assets/inline/inline-3.png'],
@@ -48,9 +41,6 @@ export default async function HomePage() {
 
   return (
     <div>
-      {/* Hero Section: Full-width Image Carousel */}
-      <HeroImageCarousel images={heroImages} autoPlayInterval={5000} />
-
       {/* Headline Block with Animated Inline Images */}
       <HeadlineBlock inlineImages={inlineImageSets} swapInterval={5000} />
 

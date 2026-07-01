@@ -24,7 +24,7 @@ export function Marquee({ text = 'ERBRANDING.STUDIO' }: MarqueeProps) {
           },
         }}
       >
-        <span className="text-7xl md:text-9xl font-bold text-white tracking-tighter">
+        <span className="text-7xl md:text-9xl font-bold text-white tracking-tighter" style={{ fontFamily: 'Helvetica, Arial, sans-serif' }}>
           {repeatedText}
         </span>
       </motion.div>
@@ -42,7 +42,7 @@ export function Marquee({ text = 'ERBRANDING.STUDIO' }: MarqueeProps) {
           },
         }}
       >
-        <span className="text-7xl md:text-9xl font-bold text-white tracking-tighter">
+        <span className="text-7xl md:text-9xl font-bold text-white tracking-tighter" style={{ fontFamily: 'Helvetica, Arial, sans-serif' }}>
           {repeatedText}
         </span>
       </motion.div>

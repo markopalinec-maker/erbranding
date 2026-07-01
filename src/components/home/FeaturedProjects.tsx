@@ -31,11 +31,11 @@ export function FeaturedProjects({ projects }: FeaturedProjectsProps) {
           >
             <Link 
               href={`/projects/${project.slug.current}`}
-              className="group block relative overflow-hidden rounded-lg aspect-[4/3] bg-neutral-900"
+              className="group block relative overflow-hidden rounded-lg aspect-[3/4] bg-neutral-900"
             >
               {project.coverImage?.asset && (
                 <Image
-                  src={urlFor(project.coverImage).width(800).height(600).url()}
+                  src={urlFor(project.coverImage).width(600).height(800).url()}
                   alt={project.coverImage.alt || project.title}
                   fill
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
@@ -47,7 +47,7 @@ export function FeaturedProjects({ projects }: FeaturedProjectsProps) {
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-300" />
               
               {/* Project info */}
-              <div className="absolute bottom-0 left-0 right-0 p-6">
+              <div className="absolute bottom-0 left-0 right-0 p-6" style={{ fontFamily: 'var(--font-inter-display)' }}>
                 <p className="text-neutral-400 text-sm mb-2">
                   {project.category ? categoryLabels[project.category] || project.category : 'Project'}
                 </p>

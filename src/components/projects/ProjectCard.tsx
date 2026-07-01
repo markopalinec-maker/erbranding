@@ -39,9 +39,9 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
         </div>
 
         {/* Cover Image */}
-        <div className="relative aspect-[4/3] overflow-hidden">
+        <div className="relative aspect-[3/4] overflow-hidden">
           <Image
-            src={urlFor(project.coverImage.asset).width(600).height(450).url()}
+            src={urlFor(project.coverImage.asset).width(450).height(600).url()}
             alt={project.coverImage.alt || project.title}
             fill
             className="object-cover transition-transform duration-500 group-hover:scale-105"
@@ -50,7 +50,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
         </div>
 
         {/* Info */}
-        <div className="p-4">
+        <div className="p-4" style={{ fontFamily: 'var(--font-inter-display)' }}>
           <p className="text-yellow-400 text-xs mb-1">
             {project.category ? categoryLabels[project.category] || project.category : 'Design'}
           </p>

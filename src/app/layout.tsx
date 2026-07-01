@@ -1,6 +1,13 @@
 import type { Metadata } from "next";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import { Header, Marquee } from "@/components/layout";
+
+const interDisplay = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-inter-display",
+});
 
 export const metadata: Metadata = {
   title: "ERBRANDING.STUDIO | Full Service Design Studio",
@@ -15,7 +22,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className="antialiased bg-black min-h-screen"
+        suppressHydrationWarning
+        className={`${interDisplay.variable} antialiased bg-black min-h-screen`}
       >
         <Header />
         <main>
