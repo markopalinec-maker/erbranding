@@ -26,7 +26,7 @@ export default function RootLayout({
         className={`${interDisplay.variable} antialiased bg-black min-h-screen`}
       >
         <Header />
-        <main>
+        <main className="pt-20">
           {children}
         </main>
         <Marquee />

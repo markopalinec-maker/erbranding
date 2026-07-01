@@ -28,7 +28,7 @@ export default async function ProjectsPage() {
       {/* Page Header */}
       <header className="mb-12">
         <h1 className="text-3xl font-bold text-white mb-2 flex items-center gap-2">
-          <span className="text-yellow-400">+</span> PROJECTS
+          <span className="text-white">+</span> PROJECTS
         </h1>
         <p className="text-neutral-400">
           A collection of our work across branding, design, and digital experiences.
