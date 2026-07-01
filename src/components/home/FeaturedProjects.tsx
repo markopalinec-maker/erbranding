@@ -31,11 +31,11 @@ export function FeaturedProjects({ projects }: FeaturedProjectsProps) {
           >
             <Link 
               href={`/projects/${project.slug.current}`}
-              className="group block relative overflow-hidden rounded-lg aspect-[3/4] bg-neutral-900"
+              className="group block relative overflow-hidden rounded-lg aspect-[3/2] bg-neutral-900"
             >
               {project.coverImage?.asset && (
                 <Image
-                  src={urlFor(project.coverImage).width(600).height(800).url()}
+                  src={urlFor(project.coverImage).width(600).height(400).url()}
                   alt={project.coverImage.alt || project.title}
                   fill
                   className="object-cover transition-transform duration-500 group-hover:scale-105"

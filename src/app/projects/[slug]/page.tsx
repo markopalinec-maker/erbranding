@@ -89,7 +89,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           
           {/* Title Overlay */}
           <div className="absolute bottom-0 left-0 right-0 p-8">
-            <p className="text-yellow-400 text-sm mb-2">
+            <p className="text-neutral-400 text-sm mb-2">
               {project.category ? categoryLabels[project.category] || project.category : 'Design'}
             </p>
             <h1 className="text-4xl md:text-5xl font-bold text-white">{project.title}</h1>
