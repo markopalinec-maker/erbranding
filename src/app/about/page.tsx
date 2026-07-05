@@ -24,8 +24,8 @@ export default async function AboutPage() {
   return (
     <main className="bg-black min-h-screen text-white">
       {/* ABOUT Heading */}
-      <section className="pt-16 pb-8 px-4 text-center">
-        <h1 className="text-6xl md:text-7xl font-bold tracking-tighter text-center">
+      <section className="pt-8 pb-8 px-4 text-center">
+        <h1 className="text-5xl md:text-6xl font-bold tracking-tighter text-center">
           ABOUT
         </h1>
       </section>
@@ -46,8 +46,8 @@ export default async function AboutPage() {
       </section>
 
       {/* Awards Section */}
-      <section className="py-32 px-4">
-        <h2 className="text-6xl md:text-7xl font-bold tracking-tighter text-center mb-24">
+      <section className="pt-10 pb-24 px-4">
+        <h2 className="text-5xl md:text-6xl font-bold tracking-tighter text-center mb-12">
           AWARDS
         </h2>
 
