@@ -12,6 +12,11 @@ const interDisplay = Inter({
 export const metadata: Metadata = {
   title: "ERBRANDING.STUDIO | Full Service Design Studio",
   description: "A full service design studio specialized in crafting visual identities, branding, web design, and more.",
+  icons: {
+    icon: "/favicon.jpeg",
+    shortcut: "/favicon.jpeg",
+    apple: "/favicon.jpeg",
+  },
 };
 
 export default function RootLayout({

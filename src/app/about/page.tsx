@@ -24,15 +24,15 @@ export default async function AboutPage() {
   return (
     <main className="bg-black min-h-screen text-white">
       {/* ABOUT Heading */}
-      <section className="py-32 px-4 text-center">
-        <h1 className="text-8xl md:text-9xl font-bold tracking-tighter mb-16">
+      <section className="pt-16 pb-8 px-4 text-center">
+        <h1 className="text-6xl md:text-7xl font-bold tracking-tighter text-center">
           ABOUT
         </h1>
       </section>
 
       {/* Our Story Section */}
-      <section className="max-w-3xl mx-auto px-4 py-16 text-center">
-        <h2 className="text-xl md:text-2xl font-light mb-8 text-gray-400">
+      <section className="max-w-3xl mx-auto px-4 pt-8 pb-2 text-center">
+        <h2 className="text-xl md:text-2xl font-light mb-2 text-gray-400">
           Our story
         </h2>
         <p className="text-base md:text-lg leading-relaxed text-gray-300 font-light">
