@@ -7,6 +7,7 @@ import { MasonryGallery } from './MasonryGallery';
 import { CustomGridGallery } from './CustomGridGallery';
 import { FullWidthGallery } from './FullWidthGallery';
 import { SplitGallery } from './SplitGallery';
+import { getRenderableImages } from './imageHelpers';
 
 interface GallerySectionProps {
   section: GallerySectionType;
@@ -16,28 +17,29 @@ interface GallerySectionProps {
 
 export function GallerySection({ section, imageStartIndex = 0, onImageClick }: GallerySectionProps) {
   const { layout, spacing = 16, maxPerRow = 4, images, sectionTitle } = section;
+  const renderableImages = getRenderableImages(images);
 
-  if (!images || images.length === 0) {
+  if (renderableImages.length === 0) {
     return null;
   }
 
   const renderGallery = () => {
     switch (layout as GalleryLayout) {
       case 'twoCol':
-        return <TwoColumnGallery images={images} spacing={spacing} imageStartIndex={imageStartIndex} onImageClick={onImageClick} />;
+        return <TwoColumnGallery images={renderableImages} spacing={spacing} imageStartIndex={imageStartIndex} onImageClick={onImageClick} />;
       case 'threeCol':
-        return <ThreeColumnGallery images={images} spacing={spacing} imageStartIndex={imageStartIndex} onImageClick={onImageClick} />;
+        return <ThreeColumnGallery images={renderableImages} spacing={spacing} imageStartIndex={imageStartIndex} onImageClick={onImageClick} />;
       case 'masonry':
-        return <MasonryGallery images={images} spacing={spacing} imageStartIndex={imageStartIndex} onImageClick={onImageClick} />;
+        return <MasonryGallery images={renderableImages} spacing={spacing} imageStartIndex={imageStartIndex} onImageClick={onImageClick} />;
       case 'grid':
-        return <CustomGridGallery images={images} spacing={spacing} maxPerRow={maxPerRow} imageStartIndex={imageStartIndex} onImageClick={onImageClick} />;
+        return <CustomGridGallery images={renderableImages} spacing={spacing} maxPerRow={maxPerRow} imageStartIndex={imageStartIndex} onImageClick={onImageClick} />;
       case 'fullWidth':
-        return <FullWidthGallery images={images} spacing={spacing} imageStartIndex={imageStartIndex} onImageClick={onImageClick} />;
+        return <FullWidthGallery images={renderableImages} spacing={spacing} imageStartIndex={imageStartIndex} onImageClick={onImageClick} />;
       case 'split':
-        return <SplitGallery images={images} spacing={spacing} imageStartIndex={imageStartIndex} onImageClick={onImageClick} />;
+        return <SplitGallery images={renderableImages} spacing={spacing} imageStartIndex={imageStartIndex} onImageClick={onImageClick} />;
       default:
         // Fallback to two column if layout is unknown
-        return <TwoColumnGallery images={images} spacing={spacing} imageStartIndex={imageStartIndex} onImageClick={onImageClick} />;
+        return <TwoColumnGallery images={renderableImages} spacing={spacing} imageStartIndex={imageStartIndex} onImageClick={onImageClick} />;
     }
   };
 

@@ -1,4 +1,5 @@
 export { GallerySection } from './GallerySection';
+export { getRenderableImages } from './imageHelpers';
 export { Lightbox } from './Lightbox';
 export { ProjectGallery } from './ProjectGallery';
 export { TwoColumnGallery } from './TwoColumnGallery';

@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { GallerySection as GallerySectionType, SanityImage } from '@/types';
 import { GallerySection } from './GallerySection';
 import { Lightbox } from './Lightbox';
+import { getRenderableImages } from './imageHelpers';
 
 interface ProjectGalleryProps {
   sections: GallerySectionType[];
@@ -15,8 +16,9 @@ export function ProjectGallery({ sections }: ProjectGalleryProps) {
   const sectionOffsets: number[] = [];
 
   for (const section of sections) {
+    const renderableImages = getRenderableImages(section.images);
     sectionOffsets.push(allImages.length);
-    allImages.push(...(section.images || []));
+    allImages.push(...renderableImages);
   }
 
   const closeLightbox = () => setActiveIndex(null);

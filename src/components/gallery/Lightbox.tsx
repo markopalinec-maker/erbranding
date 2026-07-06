@@ -42,7 +42,7 @@ export function Lightbox({ images, activeIndex, onClose, onPrevious, onNext }: L
     };
   }, [onClose, onNext, onPrevious]);
 
-  if (!activeImage) {
+  if (!activeImage?.asset) {
     return null;
   }
 
