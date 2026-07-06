@@ -8,9 +8,11 @@ import { urlFor } from '@/sanity/lib';
 interface MasonryGalleryProps {
   images: SanityImage[];
   spacing: number;
+  imageStartIndex?: number;
+  onImageClick?: (globalIndex: number) => void;
 }
 
-export function MasonryGallery({ images, spacing }: MasonryGalleryProps) {
+export function MasonryGallery({ images, spacing, imageStartIndex = 0, onImageClick }: MasonryGalleryProps) {
   if (!images || images.length === 0) return null;
 
   const breakpointColumns = {
@@ -28,10 +30,13 @@ export function MasonryGallery({ images, spacing }: MasonryGalleryProps) {
       style={{ marginLeft: `-${spacing}px` }}
     >
       {images.map((image, index) => (
-        <div
+        <button
+          type="button"
           key={image._key || index}
-          className="relative overflow-hidden bg-neutral-900"
+          className="relative block w-full overflow-hidden bg-neutral-900 text-left cursor-zoom-in"
           style={{ marginBottom: `${spacing}px`, marginLeft: `${spacing}px` }}
+          onClick={() => onImageClick?.(imageStartIndex + index)}
+          aria-label={`Open image ${index + 1}`}
         >
           <Image
             src={urlFor(image.asset).width(600).url()}
@@ -46,7 +51,7 @@ export function MasonryGallery({ images, spacing }: MasonryGalleryProps) {
               <p className="text-sm text-white">{image.caption}</p>
             </div>
           )}
-        </div>
+        </button>
       ))}
     </Masonry>
   );

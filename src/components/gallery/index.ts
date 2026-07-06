@@ -1,4 +1,6 @@
 export { GallerySection } from './GallerySection';
+export { Lightbox } from './Lightbox';
+export { ProjectGallery } from './ProjectGallery';
 export { TwoColumnGallery } from './TwoColumnGallery';
 export { ThreeColumnGallery } from './ThreeColumnGallery';
 export { MasonryGallery } from './MasonryGallery';

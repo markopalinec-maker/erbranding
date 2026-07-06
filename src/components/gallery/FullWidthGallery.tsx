@@ -7,17 +7,22 @@ import { urlFor } from '@/sanity/lib';
 interface FullWidthGalleryProps {
   images: SanityImage[];
   spacing: number;
+  imageStartIndex?: number;
+  onImageClick?: (globalIndex: number) => void;
 }
 
-export function FullWidthGallery({ images, spacing }: FullWidthGalleryProps) {
+export function FullWidthGallery({ images, spacing, imageStartIndex = 0, onImageClick }: FullWidthGalleryProps) {
   if (!images || images.length === 0) return null;
 
   return (
     <div className="flex flex-col" style={{ gap: `${spacing}px` }}>
       {images.map((image, index) => (
-        <div
+        <button
+          type="button"
           key={image._key || index}
-          className="relative w-full aspect-[16/9] overflow-hidden bg-neutral-900"
+          className="relative w-full aspect-[16/9] overflow-hidden bg-neutral-900 text-left cursor-zoom-in"
+          onClick={() => onImageClick?.(imageStartIndex + index)}
+          aria-label={`Open image ${index + 1}`}
         >
           <Image
             src={urlFor(image.asset).width(1920).height(1080).url()}
@@ -32,7 +37,7 @@ export function FullWidthGallery({ images, spacing }: FullWidthGalleryProps) {
               <p className="text-white">{image.caption}</p>
             </div>
           )}
-        </div>
+        </button>
       ))}
     </div>
   );

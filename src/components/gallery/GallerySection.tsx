@@ -10,9 +10,11 @@ import { SplitGallery } from './SplitGallery';
 
 interface GallerySectionProps {
   section: GallerySectionType;
+  imageStartIndex?: number;
+  onImageClick?: (globalIndex: number) => void;
 }
 
-export function GallerySection({ section }: GallerySectionProps) {
+export function GallerySection({ section, imageStartIndex = 0, onImageClick }: GallerySectionProps) {
   const { layout, spacing = 16, maxPerRow = 4, images, sectionTitle } = section;
 
   if (!images || images.length === 0) {
@@ -22,20 +24,20 @@ export function GallerySection({ section }: GallerySectionProps) {
   const renderGallery = () => {
     switch (layout as GalleryLayout) {
       case 'twoCol':
-        return <TwoColumnGallery images={images} spacing={spacing} />;
+        return <TwoColumnGallery images={images} spacing={spacing} imageStartIndex={imageStartIndex} onImageClick={onImageClick} />;
       case 'threeCol':
-        return <ThreeColumnGallery images={images} spacing={spacing} />;
+        return <ThreeColumnGallery images={images} spacing={spacing} imageStartIndex={imageStartIndex} onImageClick={onImageClick} />;
       case 'masonry':
-        return <MasonryGallery images={images} spacing={spacing} />;
+        return <MasonryGallery images={images} spacing={spacing} imageStartIndex={imageStartIndex} onImageClick={onImageClick} />;
       case 'grid':
-        return <CustomGridGallery images={images} spacing={spacing} maxPerRow={maxPerRow} />;
+        return <CustomGridGallery images={images} spacing={spacing} maxPerRow={maxPerRow} imageStartIndex={imageStartIndex} onImageClick={onImageClick} />;
       case 'fullWidth':
-        return <FullWidthGallery images={images} spacing={spacing} />;
+        return <FullWidthGallery images={images} spacing={spacing} imageStartIndex={imageStartIndex} onImageClick={onImageClick} />;
       case 'split':
-        return <SplitGallery images={images} spacing={spacing} />;
+        return <SplitGallery images={images} spacing={spacing} imageStartIndex={imageStartIndex} onImageClick={onImageClick} />;
       default:
         // Fallback to two column if layout is unknown
-        return <TwoColumnGallery images={images} spacing={spacing} />;
+        return <TwoColumnGallery images={images} spacing={spacing} imageStartIndex={imageStartIndex} onImageClick={onImageClick} />;
     }
   };
 

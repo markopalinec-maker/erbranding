@@ -7,9 +7,11 @@ import { urlFor } from '@/sanity/lib';
 interface ThreeColumnGalleryProps {
   images: SanityImage[];
   spacing: number;
+  imageStartIndex?: number;
+  onImageClick?: (globalIndex: number) => void;
 }
 
-export function ThreeColumnGallery({ images, spacing }: ThreeColumnGalleryProps) {
+export function ThreeColumnGallery({ images, spacing, imageStartIndex = 0, onImageClick }: ThreeColumnGalleryProps) {
   if (!images || images.length === 0) return null;
 
   return (
@@ -18,9 +20,12 @@ export function ThreeColumnGallery({ images, spacing }: ThreeColumnGalleryProps)
       style={{ gap: `${spacing}px` }}
     >
       {images.map((image, index) => (
-        <div
+        <button
+          type="button"
           key={image._key || index}
-          className="relative aspect-square overflow-hidden bg-neutral-900"
+          className="relative aspect-square overflow-hidden bg-neutral-900 text-left cursor-zoom-in"
+          onClick={() => onImageClick?.(imageStartIndex + index)}
+          aria-label={`Open image ${index + 1}`}
         >
           <Image
             src={urlFor(image.asset).width(600).height(600).url()}
@@ -34,7 +39,7 @@ export function ThreeColumnGallery({ images, spacing }: ThreeColumnGalleryProps)
               <p className="text-sm text-white">{image.caption}</p>
             </div>
           )}
-        </div>
+        </button>
       ))}
     </div>
   );

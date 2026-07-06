@@ -5,7 +5,7 @@ import { client } from '@/sanity/lib';
 import { projectBySlugQuery, projectSlugsQuery } from '@/sanity/lib/queries';
 import { urlFor } from '@/sanity/lib';
 import { Project, categoryLabels } from '@/types';
-import { GallerySection } from '@/components/gallery';
+import { ProjectGallery } from '@/components/gallery';
 
 // Revalidate every 60 seconds for ISR
 export const revalidate = 60;
@@ -124,11 +124,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
       {/* Gallery Sections */}
       {project.sections && project.sections.length > 0 && (
-        <div className="space-y-12">
-          {project.sections.map((section, index) => (
-            <GallerySection key={index} section={section} />
-          ))}
-        </div>
+        <ProjectGallery sections={project.sections} />
       )}
 
       {/* No Gallery Message */}

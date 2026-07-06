@@ -8,9 +8,11 @@ interface CustomGridGalleryProps {
   images: SanityImage[];
   spacing: number;
   maxPerRow: number;
+  imageStartIndex?: number;
+  onImageClick?: (globalIndex: number) => void;
 }
 
-export function CustomGridGallery({ images, spacing, maxPerRow }: CustomGridGalleryProps) {
+export function CustomGridGallery({ images, spacing, maxPerRow, imageStartIndex = 0, onImageClick }: CustomGridGalleryProps) {
   if (!images || images.length === 0) return null;
 
   const columns = Math.min(Math.max(maxPerRow || 4, 1), 6);
@@ -24,9 +26,12 @@ export function CustomGridGallery({ images, spacing, maxPerRow }: CustomGridGall
       }}
     >
       {images.map((image, index) => (
-        <div
+        <button
+          type="button"
           key={image._key || index}
-          className="relative aspect-square overflow-hidden bg-neutral-900"
+          className="relative aspect-square overflow-hidden bg-neutral-900 text-left cursor-zoom-in"
+          onClick={() => onImageClick?.(imageStartIndex + index)}
+          aria-label={`Open image ${index + 1}`}
         >
           <Image
             src={urlFor(image.asset).width(500).height(500).url()}
@@ -40,7 +45,7 @@ export function CustomGridGallery({ images, spacing, maxPerRow }: CustomGridGall
               <p className="text-sm text-white">{image.caption}</p>
             </div>
           )}
-        </div>
+        </button>
       ))}
     </div>
   );

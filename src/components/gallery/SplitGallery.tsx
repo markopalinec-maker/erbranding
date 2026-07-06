@@ -7,9 +7,11 @@ import { urlFor } from '@/sanity/lib';
 interface SplitGalleryProps {
   images: SanityImage[];
   spacing: number;
+  imageStartIndex?: number;
+  onImageClick?: (globalIndex: number) => void;
 }
 
-export function SplitGallery({ images, spacing }: SplitGalleryProps) {
+export function SplitGallery({ images, spacing, imageStartIndex = 0, onImageClick }: SplitGalleryProps) {
   if (!images || images.length === 0) return null;
 
   // Split images into pairs: first large, rest small
@@ -28,7 +30,12 @@ export function SplitGallery({ images, spacing }: SplitGalleryProps) {
         >
           {/* Large image */}
           {chunk[0] && (
-            <div className="md:col-span-2 relative aspect-[4/3] overflow-hidden bg-neutral-900">
+            <button
+              type="button"
+              className="md:col-span-2 relative aspect-[4/3] overflow-hidden bg-neutral-900 text-left cursor-zoom-in"
+              onClick={() => onImageClick?.(imageStartIndex + chunkIndex * 3)}
+              aria-label={`Open image ${chunkIndex * 3 + 1}`}
+            >
               <Image
                 src={urlFor(chunk[0].asset).width(1200).height(900).url()}
                 alt={chunk[0].alt || ''}
@@ -41,14 +48,17 @@ export function SplitGallery({ images, spacing }: SplitGalleryProps) {
                   <p className="text-sm text-white">{chunk[0].caption}</p>
                 </div>
               )}
-            </div>
+            </button>
           )}
           {/* Small images stacked */}
           <div className="flex flex-col" style={{ gap: `${spacing}px` }}>
             {chunk.slice(1).map((image, index) => (
-              <div
+              <button
+                type="button"
                 key={image._key || index}
-                className="relative aspect-[4/3] overflow-hidden bg-neutral-900 flex-1"
+                className="relative aspect-[4/3] overflow-hidden bg-neutral-900 flex-1 text-left cursor-zoom-in"
+                onClick={() => onImageClick?.(imageStartIndex + chunkIndex * 3 + index + 1)}
+                aria-label={`Open image ${chunkIndex * 3 + index + 2}`}
               >
                 <Image
                   src={urlFor(image.asset).width(600).height(450).url()}
@@ -62,7 +72,7 @@ export function SplitGallery({ images, spacing }: SplitGalleryProps) {
                     <p className="text-sm text-white">{image.caption}</p>
                   </div>
                 )}
-              </div>
+              </button>
             ))}
           </div>
         </div>
