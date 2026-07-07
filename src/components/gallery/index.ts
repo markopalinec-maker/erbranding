@@ -1,7 +1,8 @@
 export { GallerySection } from './GallerySection';
-export { getRenderableImages } from './imageHelpers';
+export { getRenderableMedia, isVideo, isImage, getMediaUrl, getMediaThumbnail } from './mediaHelpers';
 export { Lightbox } from './Lightbox';
 export { ProjectGallery } from './ProjectGallery';
+export { VideoPlayer } from './VideoPlayer';
 export { TwoColumnGallery } from './TwoColumnGallery';
 export { ThreeColumnGallery } from './ThreeColumnGallery';
 export { MasonryGallery } from './MasonryGallery';

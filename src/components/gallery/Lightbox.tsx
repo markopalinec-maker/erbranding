@@ -2,19 +2,21 @@
 
 import { useEffect } from 'react';
 import Image from 'next/image';
-import { SanityImage } from '@/types';
+import { SanityMedia } from '@/types';
 import { urlFor } from '@/sanity/lib';
+import { isVideo } from './mediaHelpers';
+import { VideoPlayer } from './VideoPlayer';
 
 interface LightboxProps {
-  images: SanityImage[];
+  media: SanityMedia[];
   activeIndex: number;
   onClose: () => void;
   onPrevious: () => void;
   onNext: () => void;
 }
 
-export function Lightbox({ images, activeIndex, onClose, onPrevious, onNext }: LightboxProps) {
-  const activeImage = images[activeIndex];
+export function Lightbox({ media, activeIndex, onClose, onPrevious, onNext }: LightboxProps) {
+  const activeMedia = media[activeIndex];
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -42,7 +44,7 @@ export function Lightbox({ images, activeIndex, onClose, onPrevious, onNext }: L
     };
   }, [onClose, onNext, onPrevious]);
 
-  if (!activeImage?.asset) {
+  if (!activeMedia?.asset) {
     return null;
   }
 
@@ -52,7 +54,7 @@ export function Lightbox({ images, activeIndex, onClose, onPrevious, onNext }: L
       onClick={onClose}
       role="dialog"
       aria-modal="true"
-      aria-label="Project image viewer"
+      aria-label="Project media viewer"
     >
       <button
         type="button"
@@ -61,7 +63,7 @@ export function Lightbox({ images, activeIndex, onClose, onPrevious, onNext }: L
           event.stopPropagation();
           onClose();
         }}
-        aria-label="Close image viewer"
+        aria-label="Close media viewer"
       >
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
           <path d="M18 6L6 18" />
@@ -76,7 +78,7 @@ export function Lightbox({ images, activeIndex, onClose, onPrevious, onNext }: L
           event.stopPropagation();
           onPrevious();
         }}
-        aria-label="Show previous image"
+        aria-label="Show previous media"
       >
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
           <polyline points="15 18 9 12 15 6" />
@@ -90,7 +92,7 @@ export function Lightbox({ images, activeIndex, onClose, onPrevious, onNext }: L
           event.stopPropagation();
           onNext();
         }}
-        aria-label="Show next image"
+        aria-label="Show next media"
       >
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
           <polyline points="9 18 15 12 9 6" />
@@ -102,21 +104,29 @@ export function Lightbox({ images, activeIndex, onClose, onPrevious, onNext }: L
         onClick={(event) => event.stopPropagation()}
       >
         <div className="relative h-full max-h-[80vh] w-full">
-          <Image
-            src={urlFor(activeImage.asset).width(2400).url()}
-            alt={activeImage.alt || ''}
-            fill
-            className="object-contain"
-            sizes="100vw"
-            priority
-          />
+          {isVideo(activeMedia) ? (
+            <VideoPlayer
+              video={activeMedia}
+              showPlayIcon={false}
+              className="h-full w-full"
+            />
+          ) : (
+            <Image
+              src={urlFor(activeMedia.asset).width(2400).url()}
+              alt={activeMedia.alt || ''}
+              fill
+              className="object-contain"
+              sizes="100vw"
+              priority
+            />
+          )}
         </div>
 
         <div className="flex max-w-3xl flex-col items-center gap-2 text-center text-white">
           <p className="text-sm text-neutral-300">
-            {activeIndex + 1} / {images.length}
+            {activeIndex + 1} / {media.length}
           </p>
-          {activeImage.caption && <p className="text-sm md:text-base">{activeImage.caption}</p>}
+          {activeMedia.caption && <p className="text-sm md:text-base">{activeMedia.caption}</p>}
         </div>
       </div>
     </div>

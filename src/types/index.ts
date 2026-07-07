@@ -1,8 +1,11 @@
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type SanityImageAsset = any;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type SanityFileAsset = any;
 
 export interface SanityImage {
   _key?: string;
+  _type?: 'image';
   asset: SanityImageAsset;
   alt?: string;
   caption?: string;
@@ -20,6 +23,17 @@ export interface SanityImage {
   };
 }
 
+export interface SanityVideo {
+  _key?: string;
+  _type: 'videoAsset';
+  asset: SanityFileAsset;
+  alt?: string;
+  caption?: string;
+  thumbnail?: SanityImage;
+}
+
+export type SanityMedia = SanityImage | SanityVideo;
+
 export type GalleryLayout = 'twoCol' | 'threeCol' | 'masonry' | 'grid' | 'fullWidth' | 'split';
 
 export interface GallerySection {
@@ -27,7 +41,7 @@ export interface GallerySection {
   layout: GalleryLayout;
   spacing: number;
   maxPerRow?: number;
-  images: SanityImage[];
+  media: SanityMedia[];
 }
 
 export interface Project {

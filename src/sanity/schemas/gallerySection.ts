@@ -47,8 +47,8 @@ export const gallerySection = defineType({
       validation: (Rule) => Rule.min(1).max(6),
     }),
     defineField({
-      name: 'images',
-      title: 'Images',
+      name: 'media',
+      title: 'Images & Videos',
       type: 'array',
       of: [
         {
@@ -70,6 +70,9 @@ export const gallerySection = defineType({
             },
           ],
         },
+        {
+          type: 'videoAsset',
+        },
       ],
       options: {
         layout: 'grid',
@@ -79,9 +82,9 @@ export const gallerySection = defineType({
   preview: {
     select: {
       layout: 'layout',
-      images: 'images',
+      media: 'media',
     },
-    prepare({ layout, images }) {
+    prepare({ layout, media }) {
       const layoutNames: Record<string, string> = {
         twoCol: 'Two Columns',
         threeCol: 'Three Columns',
@@ -92,7 +95,7 @@ export const gallerySection = defineType({
       };
       return {
         title: layoutNames[layout] || 'Gallery Section',
-        subtitle: `${images?.length || 0} images`,
+        subtitle: `${media?.length || 0} items`,
       };
     },
   },

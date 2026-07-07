@@ -43,13 +43,22 @@ export const projectBySlugQuery = groq`
       layout,
       spacing,
       maxPerRow,
-      images[] {
+      media[] {
         _key,
-        asset,
-        alt,
-        caption,
-        hotspot,
-        crop
+        _type,
+        ...(select(_type == "image" => {
+          asset,
+          alt,
+          caption,
+          hotspot,
+          crop
+        })),
+        ...(select(_type == "videoAsset" => {
+          asset,
+          alt,
+          caption,
+          thumbnail
+        }))
       }
     }
   }
@@ -77,13 +86,22 @@ export const pageBySlugQuery = groq`
       layout,
       spacing,
       maxPerRow,
-      images[] {
+      media[] {
         _key,
-        asset,
-        alt,
-        caption,
-        hotspot,
-        crop
+        _type,
+        ...(select(_type == "image" => {
+          asset,
+          alt,
+          caption,
+          hotspot,
+          crop
+        })),
+        ...(select(_type == "videoAsset" => {
+          asset,
+          alt,
+          caption,
+          thumbnail
+        }))
       }
     }
   }

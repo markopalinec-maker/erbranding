@@ -1,10 +1,10 @@
 'use client';
 
 import { useState } from 'react';
-import { GallerySection as GallerySectionType, SanityImage } from '@/types';
+import { GallerySection as GallerySectionType, SanityMedia } from '@/types';
 import { GallerySection } from './GallerySection';
 import { Lightbox } from './Lightbox';
-import { getRenderableImages } from './imageHelpers';
+import { getRenderableMedia } from './mediaHelpers';
 
 interface ProjectGalleryProps {
   sections: GallerySectionType[];
@@ -12,33 +12,33 @@ interface ProjectGalleryProps {
 
 export function ProjectGallery({ sections }: ProjectGalleryProps) {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
-  const allImages: SanityImage[] = [];
+  const allMedia: SanityMedia[] = [];
   const sectionOffsets: number[] = [];
 
   for (const section of sections) {
-    const renderableImages = getRenderableImages(section.images);
-    sectionOffsets.push(allImages.length);
-    allImages.push(...renderableImages);
+    const renderableMedia = getRenderableMedia(section.media);
+    sectionOffsets.push(allMedia.length);
+    allMedia.push(...renderableMedia);
   }
 
   const closeLightbox = () => setActiveIndex(null);
   const showPreviousImage = () => {
     setActiveIndex((currentIndex) => {
-      if (currentIndex === null || allImages.length === 0) {
+      if (currentIndex === null || allMedia.length === 0) {
         return currentIndex;
       }
 
-      return (currentIndex - 1 + allImages.length) % allImages.length;
+      return (currentIndex - 1 + allMedia.length) % allMedia.length;
     });
   };
 
   const showNextImage = () => {
     setActiveIndex((currentIndex) => {
-      if (currentIndex === null || allImages.length === 0) {
+      if (currentIndex === null || allMedia.length === 0) {
         return currentIndex;
       }
 
-      return (currentIndex + 1) % allImages.length;
+      return (currentIndex + 1) % allMedia.length;
     });
   };
 
@@ -55,9 +55,9 @@ export function ProjectGallery({ sections }: ProjectGalleryProps) {
         ))}
       </div>
 
-      {activeIndex !== null && allImages.length > 0 && (
+      {activeIndex !== null && allMedia.length > 0 && (
         <Lightbox
-          images={allImages}
+          media={allMedia}
           activeIndex={activeIndex}
           onClose={closeLightbox}
           onPrevious={showPreviousImage}
