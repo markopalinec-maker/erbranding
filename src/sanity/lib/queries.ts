@@ -43,7 +43,7 @@ export const projectBySlugQuery = groq`
       layout,
       spacing,
       maxPerRow,
-      media[] {
+      "media": coalesce(media, images)[] {
         _key,
         _type,
         ...(select(_type == "image" => {
@@ -86,7 +86,7 @@ export const pageBySlugQuery = groq`
       layout,
       spacing,
       maxPerRow,
-      media[] {
+      "media": coalesce(media, images)[] {
         _key,
         _type,
         ...(select(_type == "image" => {
