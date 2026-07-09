@@ -43,7 +43,7 @@ export const projectBySlugQuery = groq`
       layout,
       spacing,
       maxPerRow,
-      "media": coalesce(media, images)[] {
+      "media": (coalesce(media, []) + coalesce(images, []))[] {
         _key,
         _type,
         ...(select(_type == "image" => {
@@ -54,10 +54,19 @@ export const projectBySlugQuery = groq`
           crop
         })),
         ...(select(_type == "videoAsset" => {
-          asset,
+          "asset": asset-> {
+            _id,
+            url,
+            mimeType
+          },
           alt,
           caption,
-          thumbnail
+          "thumbnail": thumbnail {
+            "asset": asset-> {
+              url
+            },
+            alt
+          }
         }))
       }
     }
@@ -86,7 +95,7 @@ export const pageBySlugQuery = groq`
       layout,
       spacing,
       maxPerRow,
-      "media": coalesce(media, images)[] {
+      "media": (coalesce(media, []) + coalesce(images, []))[] {
         _key,
         _type,
         ...(select(_type == "image" => {
@@ -97,10 +106,19 @@ export const pageBySlugQuery = groq`
           crop
         })),
         ...(select(_type == "videoAsset" => {
-          asset,
+          "asset": asset-> {
+            _id,
+            url,
+            mimeType
+          },
           alt,
           caption,
-          thumbnail
+          "thumbnail": thumbnail {
+            "asset": asset-> {
+              url
+            },
+            alt
+          }
         }))
       }
     }

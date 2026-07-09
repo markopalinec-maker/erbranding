@@ -50,6 +50,7 @@ export const gallerySection = defineType({
       name: 'media',
       title: 'Images & Videos',
       type: 'array',
+      description: 'Add images and videos. New content goes here.',
       of: [
         {
           type: 'image',
@@ -72,6 +73,35 @@ export const gallerySection = defineType({
         },
         {
           type: 'videoAsset',
+        },
+      ],
+      options: {
+        layout: 'grid',
+      },
+    }),
+    defineField({
+      name: 'images',
+      title: 'Legacy Images',
+      type: 'array',
+      description: 'Existing images from before the video update. Move these to "Images & Videos" above to manage them together.',
+      of: [
+        {
+          type: 'image',
+          options: {
+            hotspot: true,
+          },
+          fields: [
+            {
+              name: 'alt',
+              title: 'Alt Text',
+              type: 'string',
+            },
+            {
+              name: 'caption',
+              title: 'Caption',
+              type: 'string',
+            },
+          ],
         },
       ],
       options: {
