@@ -51,8 +51,7 @@ export const projectBySlugQuery = groq`
         caption,
         hotspot,
         crop,
-        "videoUrl": select(_type == "videoAsset" => asset->url),
-        "thumbnailUrl": select(_type == "videoAsset" => thumbnail.asset->url)
+        "thumbnail": thumbnail { asset, alt }
       }
     }
   }
@@ -88,8 +87,7 @@ export const pageBySlugQuery = groq`
         caption,
         hotspot,
         crop,
-        "videoUrl": select(_type == "videoAsset" => asset->url),
-        "thumbnailUrl": select(_type == "videoAsset" => thumbnail.asset->url)
+        "thumbnail": thumbnail { asset, alt }
       }
     }
   }

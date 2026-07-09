@@ -1,6 +1,8 @@
 'use client';
 
 import { SanityVideo } from '@/types';
+import { urlFor } from '@/sanity/lib';
+import { getVideoFileUrl } from './mediaHelpers';
 
 interface VideoPlayerProps {
   video: SanityVideo;
@@ -10,15 +12,31 @@ interface VideoPlayerProps {
 }
 
 export function VideoPlayer({ video, onClick, showPlayIcon = true, className = '' }: VideoPlayerProps) {
-  const videoUrl = video.videoUrl || video.asset?.url;
+  const videoUrl = getVideoFileUrl(video.asset);
+  const thumbnailUrl = video.thumbnail?.asset
+    ? urlFor(video.thumbnail.asset).width(800).url()
+    : null;
+
+  console.log('[VideoPlayer] debug:', {
+    _type: video._type,
+    assetRef: video.asset?._ref,
+    resolvedVideoUrl: videoUrl,
+    hasThumbnailAsset: Boolean(video.thumbnail?.asset),
+    resolvedThumbnailUrl: thumbnailUrl,
+  });
 
   if (!videoUrl) {
-    return null;
+    console.warn('[VideoPlayer] could not resolve URL — asset._ref:', video.asset?._ref);
+    return (
+      <div className={`flex items-center justify-center bg-neutral-800 ${className}`}>
+        <p className="text-neutral-500 text-xs p-2 text-center">
+          Video unavailable (check console)
+        </p>
+      </div>
+    );
   }
 
-  const thumbnailUrl = video.thumbnailUrl || video.thumbnail?.asset?.url;
-
-  // Thumbnail preview mode (usually in gallery grid)
+  // Thumbnail preview mode (gallery grid)
   if (showPlayIcon) {
     return (
       <button
@@ -36,7 +54,7 @@ export function VideoPlayer({ video, onClick, showPlayIcon = true, className = '
         ) : (
           <div className="w-full h-full bg-neutral-800" />
         )}
-        <div className="absolute inset-0 flex items-center justify-center bg-black/30 transition group-hover:bg-black/50">
+        <div className="absolute inset-0 flex items-center justify-center bg-black/30 transition hover:bg-black/50">
           <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white/90 transition hover:bg-white">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" className="ml-1 text-black">
               <polygon points="5 3 19 12 5 21 5 3" />
@@ -56,7 +74,7 @@ export function VideoPlayer({ video, onClick, showPlayIcon = true, className = '
   return (
     <video
       src={videoUrl}
-      poster={thumbnailUrl}
+      poster={thumbnailUrl || undefined}
       controls
       className={`w-full h-full object-contain ${className}`}
       aria-label={video.alt || 'video'}
