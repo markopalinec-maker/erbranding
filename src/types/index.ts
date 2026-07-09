@@ -27,6 +27,7 @@ export interface SanityVideo {
   _key?: string;
   _type: 'videoAsset';
   asset: SanityFileAsset;
+  fileAsset?: SanityFileAsset;
   alt?: string;
   caption?: string;
   thumbnail?: SanityImage;

@@ -10,7 +10,12 @@ export function isImage(media?: SanityMedia): media is SanityImage {
 }
 
 export function getRenderableMedia(media?: SanityMedia[]): SanityMedia[] {
-  return (media || []).filter((m): m is SanityMedia => Boolean(m?.asset));
+  return (media || []).filter((m): m is SanityMedia => {
+    if (isVideo(m)) {
+      return Boolean(m?.fileAsset || m?.asset?.asset || m?.asset?._ref || m?.asset?.url);
+    }
+    return Boolean(m?.asset);
+  });
 }
 
 /**
@@ -18,20 +23,28 @@ export function getRenderableMedia(media?: SanityMedia[]): SanityMedia[] {
  * File asset refs have the form: "file-{hash}-{extension}"
  * CDN URL: https://cdn.sanity.io/files/{projectId}/{dataset}/{hash}.{extension}
  */
-export function getVideoFileUrl(asset?: { _ref?: string; url?: string }): string | null {
-  // If already resolved (future-proof)
-  if (asset?.url) return asset.url;
+export function getVideoFileUrl(video?: SanityVideo): string | null {
+  const candidates = [video?.fileAsset, video?.asset?.asset, video?.asset] as Array<
+    { _ref?: string; url?: string } | undefined
+  >;
 
-  const ref = asset?._ref;
-  if (!ref || !ref.startsWith('file-')) return null;
+  for (const candidate of candidates) {
+    if (!candidate) continue;
+    if (candidate.url) return candidate.url;
 
-  const withoutPrefix = ref.slice(5); // remove 'file-'
-  const lastDash = withoutPrefix.lastIndexOf('-');
-  if (lastDash === -1) return null;
+    const ref = candidate._ref;
+    if (!ref || !ref.startsWith('file-')) continue;
 
-  const hash = withoutPrefix.slice(0, lastDash);
-  const ext = withoutPrefix.slice(lastDash + 1);
-  return `https://cdn.sanity.io/files/${projectId}/${dataset}/${hash}.${ext}`;
+    const withoutPrefix = ref.slice(5);
+    const lastDash = withoutPrefix.lastIndexOf('-');
+    if (lastDash === -1) continue;
+
+    const hash = withoutPrefix.slice(0, lastDash);
+    const ext = withoutPrefix.slice(lastDash + 1);
+    return `https://cdn.sanity.io/files/${projectId}/${dataset}/${hash}.${ext}`;
+  }
+
+  return null;
 }
 
 export function getMediaUrl(media: SanityMedia): string | null {
@@ -39,7 +52,7 @@ export function getMediaUrl(media: SanityMedia): string | null {
     return media?.asset?.url || null;
   }
   if (isVideo(media)) {
-    return media?.asset?.url || null;
+    return getVideoFileUrl(media);
   }
   return null;
 }

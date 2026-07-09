@@ -12,13 +12,15 @@ interface VideoPlayerProps {
 }
 
 export function VideoPlayer({ video, onClick, showPlayIcon = true, className = '' }: VideoPlayerProps) {
-  const videoUrl = getVideoFileUrl(video.asset);
+  const videoUrl = getVideoFileUrl(video);
   const thumbnailUrl = video.thumbnail?.asset
     ? urlFor(video.thumbnail.asset).width(800).url()
     : null;
 
   console.log('[VideoPlayer] debug:', {
     _type: video._type,
+    fileAssetRef: video.fileAsset?._ref,
+    nestedAssetRef: video.asset?.asset?._ref,
     assetRef: video.asset?._ref,
     resolvedVideoUrl: videoUrl,
     hasThumbnailAsset: Boolean(video.thumbnail?.asset),
@@ -26,7 +28,11 @@ export function VideoPlayer({ video, onClick, showPlayIcon = true, className = '
   });
 
   if (!videoUrl) {
-    console.warn('[VideoPlayer] could not resolve URL — asset._ref:', video.asset?._ref);
+    console.warn('[VideoPlayer] could not resolve URL from any known asset shape', {
+      fileAsset: video.fileAsset,
+      nestedAsset: video.asset?.asset,
+      asset: video.asset,
+    });
     return (
       <div className={`flex items-center justify-center bg-neutral-800 ${className}`}>
         <p className="text-neutral-500 text-xs p-2 text-center">
@@ -76,6 +82,16 @@ export function VideoPlayer({ video, onClick, showPlayIcon = true, className = '
       src={videoUrl}
       poster={thumbnailUrl || undefined}
       controls
+      onError={(event) => {
+        const mediaElement = event.currentTarget;
+        console.error('[VideoPlayer] video playback error', {
+          src: mediaElement.currentSrc,
+          readyState: mediaElement.readyState,
+          networkState: mediaElement.networkState,
+          errorCode: mediaElement.error?.code,
+          errorMessage: mediaElement.error?.message,
+        });
+      }}
       className={`w-full h-full object-contain ${className}`}
       aria-label={video.alt || 'video'}
     >
