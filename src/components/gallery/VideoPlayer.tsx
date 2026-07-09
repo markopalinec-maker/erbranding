@@ -10,11 +10,13 @@ interface VideoPlayerProps {
 }
 
 export function VideoPlayer({ video, onClick, showPlayIcon = true, className = '' }: VideoPlayerProps) {
-  const videoUrl = video.asset?.url;
+  const videoUrl = video.videoUrl || video.asset?.url;
 
   if (!videoUrl) {
     return null;
   }
+
+  const thumbnailUrl = video.thumbnailUrl || video.thumbnail?.asset?.url;
 
   // Thumbnail preview mode (usually in gallery grid)
   if (showPlayIcon) {
@@ -25,10 +27,10 @@ export function VideoPlayer({ video, onClick, showPlayIcon = true, className = '
         className={`relative w-full h-full cursor-zoom-in overflow-hidden bg-neutral-900 ${className}`}
         aria-label={`Play video: ${video.alt || 'video'}`}
       >
-        {video.thumbnail?.asset ? (
+        {thumbnailUrl ? (
           <img
-            src={video.thumbnail.asset.url || ''}
-            alt={video.thumbnail.alt || video.alt || ''}
+            src={thumbnailUrl}
+            alt={video.alt || ''}
             className="w-full h-full object-cover"
           />
         ) : (
@@ -54,7 +56,7 @@ export function VideoPlayer({ video, onClick, showPlayIcon = true, className = '
   return (
     <video
       src={videoUrl}
-      poster={video.thumbnail?.asset?.url}
+      poster={thumbnailUrl}
       controls
       className={`w-full h-full object-contain ${className}`}
       aria-label={video.alt || 'video'}

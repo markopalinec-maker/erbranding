@@ -30,6 +30,8 @@ export interface SanityVideo {
   alt?: string;
   caption?: string;
   thumbnail?: SanityImage;
+  videoUrl?: string;
+  thumbnailUrl?: string;
 }
 
 export type SanityMedia = SanityImage | SanityVideo;

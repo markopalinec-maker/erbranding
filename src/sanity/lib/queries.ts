@@ -46,28 +46,13 @@ export const projectBySlugQuery = groq`
       "media": (coalesce(media, []) + coalesce(images, []))[] {
         _key,
         _type,
-        ...(select(_type == "image" => {
-          asset,
-          alt,
-          caption,
-          hotspot,
-          crop
-        })),
-        ...(select(_type == "videoAsset" => {
-          "asset": asset-> {
-            _id,
-            url,
-            mimeType
-          },
-          alt,
-          caption,
-          "thumbnail": thumbnail {
-            "asset": asset-> {
-              url
-            },
-            alt
-          }
-        }))
+        asset,
+        alt,
+        caption,
+        hotspot,
+        crop,
+        "videoUrl": select(_type == "videoAsset" => asset->url),
+        "thumbnailUrl": select(_type == "videoAsset" => thumbnail.asset->url)
       }
     }
   }
@@ -98,28 +83,13 @@ export const pageBySlugQuery = groq`
       "media": (coalesce(media, []) + coalesce(images, []))[] {
         _key,
         _type,
-        ...(select(_type == "image" => {
-          asset,
-          alt,
-          caption,
-          hotspot,
-          crop
-        })),
-        ...(select(_type == "videoAsset" => {
-          "asset": asset-> {
-            _id,
-            url,
-            mimeType
-          },
-          alt,
-          caption,
-          "thumbnail": thumbnail {
-            "asset": asset-> {
-              url
-            },
-            alt
-          }
-        }))
+        asset,
+        alt,
+        caption,
+        hotspot,
+        crop,
+        "videoUrl": select(_type == "videoAsset" => asset->url),
+        "thumbnailUrl": select(_type == "videoAsset" => thumbnail.asset->url)
       }
     }
   }
